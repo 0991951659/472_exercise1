@@ -14,8 +14,15 @@ hundred <- function(data) {
 }
 
 
+# Test with the "iris" data: a built-in R dataset with four numeric variables containing 
+# measurements of 4 different attributes for 50 flowers 
+data("iris")
+hundred(iris)
+# function now returns the transform data where all the numeric columns are multiplied by 100 
+
+
+
 # Update the function by the adding the operation type as a second argument 
-hundred <- function(data, operation_type) {
   hundred <- function(data, operation_type) {
     # Check if the input is a data frame
     if (!is.data.frame(data)) {
@@ -46,9 +53,3 @@ hundred <- function(data, operation_type) {
   
   # adding multiply operation as the second argument for the iris dataset
   hundred(iris, "multiply")
-
-# Test with the "iris" data: a built-in R dataset with four numeric variables containing 
-# measurements of 4 different attributes for 50 flowers 
-data("iris")
-hundred(iris)
-# function now returns the transform data where all the numeric columns are multiplied by 100 
