@@ -1,0 +1,81 @@
+---
+title: "Hundred function"
+output: html_document
+date: "2023-10-29"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The Hundred function description
+This RMarkdown document demonstrates the functionality of the 'hundred' function. Overall, the function takes two arguments, the dataset name and the operation type, to transform any numeric variables of the dataset by 100. The four operation types included in the second argument include, add, subtract, multiply and divide. 
+
+Here, I demonstrate the use of function with the built-in r dataset "iris". Iris contains four numeric variables and one categorical variable. All codes are included along with the output rather than in the Appendix. 
+
+```{r data, include=FALSE}
+data(iris)
+
+hundred <- function(data, operation_type) {
+  # Check if the input is a data frame
+  if (!is.data.frame(data)) {
+    stop("Input data must be a data frame.")
+  }
+  
+  # Identify numeric columns
+  numeric_cols <- sapply(data, is.numeric)
+  
+  if (operation_type == "multiply") {
+    # Multiply only the numeric columns by 100
+    data[numeric_cols] <- data[numeric_cols] * 100
+  } else if (operation_type == "sum") {
+    # Add 100 to the numeric columns
+    data[numeric_cols] <- data[numeric_cols] + 100
+  } else if (operation_type == "subtract") {
+    # Subtract 100 from the numeric columns
+    data[numeric_cols] <- data[numeric_cols] - 100
+  } else if (operation_type == "divide") {
+    # Divide the numeric columns by 100
+    data[numeric_cols] <- data[numeric_cols] / 100
+  } else {
+    stop("Invalid operation type.")
+  }
+  
+  return(data)
+}
+```
+
+The first demonstration is with the sum operation. Here, the 'hundred' function adds any numeric variables by 100. When calling the new dataset, 'iris_add', we see that R returns the transformed data. 
+
+
+```{r add, echo=FALSE}
+iris_add<-hundred(iris, "sum")
+head(iris_add) # print the first few rows due to large amount of observations
+```
+
+Next operation is subtract, where R returned the subtracted numeric values of all the columns. 
+
+```{r subtract, echo=FALSE}
+iris_subtract<-hundred(iris, "subtract")
+head(iris_subtract) # print the first few rows due to large amount of observations
+```
+
+The third operation type is multiply. Fill the second argument of the hundred function with 'multiply' and the function returns the transformed values, which are multiplied by 100. 
+
+```{r multiply, echo=FALSE}
+iris_multiply<-hundred(iris, "multiply")
+head(iris_multiply) # print the first few rows due to large amount of observations
+```
+
+Lastly, the hundred function can divide the numeric values. 
+```{r divide, echo=FALSE}
+iris_divide<-hundred(iris, "divide")
+head(iris_divide) # print the first few rows due to large amount of observations
+```
+
+The 'hundred' function has the feasibility where it can simultaneously check whether variables are numeric and apply any operation to the entirety of numeric variables. In this case, for example, it does not return an error even when the Iris dataset includes one categorical variable, and undergoes the math operation only with the numeric variables. However, this function may not be suitable if the user wishes to transform one variable. Users should examine their dataset and the output they would like to obtain after their transformation process carefully before using this function. 
+
+## Appendix: codes used to generate the outputs 
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE} 
+```
